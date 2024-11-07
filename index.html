@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Example</title>
+    <style>
+        /* Basic styling */
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .cookie-info { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Cookie Demo</h1>
+    <p id="cookieMessage">Enter your name to store it as a cookie:</p>
+    <input type="text" id="username" placeholder="Your Name">
+    <button onclick="setCookie()">Set Cookie</button>
+    <div class="cookie-info">
+        <p id="displayCookie"></p>
+    </div>
+
+    <script>
+        // Function to set a cookie
+        function setCookie() {
+            let name = document.getElementById("username").value;
+            if (name) {
+                document.cookie = "username=" + name + "; path=/";
+                alert("Cookie has been set!");
+                displayCookie();
+            }
+        }
+
+        // Function to get a cookie value
+        function getCookie(name) {
+            let cookieArr = document.cookie.split(";");
+            for (let i = 0; i < cookieArr.length; i++) {
+                let cookiePair = cookieArr[i].split("=");
+                if (name == cookiePair[0].trim()) {
+                    return cookiePair[1];
+                }
+            }
+            return null;
+        }
+
+        // Function to display cookie on page reload
+        function displayCookie() {
+            let username = getCookie("username");
+            if (username) {
+                document.getElementById("displayCookie").innerText = "Welcome back, " + username + "!";
+            } else {
+                document.getElementById("displayCookie").innerText = "No cookie found.";
+            }
+        }
+
+        // Display cookie value on page load
+        window.onload = function() {
+            displayCookie();
+        }
+    </script>
+</body>
+</html>
